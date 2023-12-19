@@ -37,22 +37,26 @@ public class Control {
     @PutMapping("/product/{id}")
     public ResponseEntity<Object> updateProduct(
             @PathVariable("id") String id,
-            @RequestParam(value = "name", required = false) String updatedProductName,
-            @RequestParam(value = "price", required = false) String updateProductPrice
+            @RequestBody Product updatedProduct
     ) {
+        System.out.println("Received request to update product with ID: " + id);
+        System.out.println("Updated Product Details: " + updatedProduct.toString());
+
         if (productRepo.containsKey(id)) {
             Product oldProductValue = productRepo.get(id);
-            if (updatedProductName != null) {
-                oldProductValue.setProductName(updatedProductName);
+            if (updatedProduct.getProductName() != null) {
+                oldProductValue.setProductName(updatedProduct.getProductName());
             }
-            if (updateProductPrice != null) {
-                oldProductValue.setProductPrice(updateProductPrice);
+            if (updatedProduct.getProductPrice() != null) {
+                oldProductValue.setProductPrice(updatedProduct.getProductPrice());
             }
             return new ResponseEntity<>("Product updated successfully", HttpStatus.OK);
         } else {
             return new ResponseEntity<>("Product with ID " + id + " not found", HttpStatus.NOT_FOUND);
         }
     }
+
+
 
     // DELETE Request for deleting a Product
     @DeleteMapping("/product/{id}")

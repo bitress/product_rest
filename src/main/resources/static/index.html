@@ -214,7 +214,7 @@
 
         $.ajax({
             type: 'PUT',
-            url: `/product/${formData.productId}`, // Update the endpoint to match your Spring Boot API
+            url: `/product/${formData.productId}`,
             contentType: 'application/json',
             data: JSON.stringify(formData),
             success: function(response) {
@@ -232,6 +232,7 @@
             },
         });
     }
+
 
     function deleteProduct(id) {
         $.ajax({
